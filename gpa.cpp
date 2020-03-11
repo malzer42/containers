@@ -12,63 +12,71 @@
 
 std::map<std::string, double> create_map()
 {
-  std::map<std::string, double> m;
-  m["A+"] = 4.0;
-  m["A"] = 4.0;
-  m["A-"] = 3.67;
-  m["B+"] = 3.33;
-  m["B"] = 3.0;
-  m["B-"] = 2.67;
-  m["C+"] = 2.33;
-  m["C"] = 2.0;
-  m["C-"] = 1.67;
-  m["D+"] = 1.33;
-  m["D"] = 1.0;
-  m["F"] = 0.0;
-  m["a+"] = 4.0;
-  m["a"] = 4.0;
-  m["a-"] = 3.67;
-  m["b+"] = 3.33;
-  m["b"] = 3.0;
-  m["b-"] = 2.67;
-  m["c+"] = 2.33;
-  m["c"] = 2.0;
-  m["c-"] = 1.67;
-  m["d+"] = 1.33;
-  m["d"] = 1.0;
-  m["f"] = 0.0;
+    std::map<std::string, double> m;
+    m["A+"] = 4.0;
+    m["A"] = 4.0;
+    m["A-"] = 3.67;
+    m["B+"] = 3.33;
+    m["B"] = 3.0;
+    m["B-"] = 2.67;
+    m["C+"] = 2.33;
+    m["C"] = 2.0;
+    m["C-"] = 1.67;
+    m["D+"] = 1.33;
+    m["D"] = 1.0;
+    m["F"] = 0.0;
+    m["a+"] = 4.0;
+    m["a"] = 4.0;
+    m["a-"] = 3.67;
+    m["b+"] = 3.33;
+    m["b"] = 3.0;
+    m["b-"] = 2.67;
+    m["c+"] = 2.33;
+    m["c"] = 2.0;
+    m["c-"] = 1.67;
+    m["d+"] = 1.33;
+    m["d"] = 1.0;
+    m["f"] = 0.0;
     
-  return m;
+    return m;
 }
 
 int main(int argc, char *argv[])
 {
-  try{
-    std::cout << "Grade Point Average" << std::endl;
-    std::map<std::string, double> points = create_map();
-    unsigned int nCourses = 0;
-    double total_points = 0.0;
+    try{
+	std::cout << "Grade Point Average" << std::endl;
+	std::map<std::string, double> points = create_map();
+	unsigned int nCourses = 0;
+	double total_points = 0.0;
+    
+	bool isDone = false;
+	while(!isDone){
+	    std::cout << "Read a grade (A+, A, A-, B+, B, B-, C+, C, C-, D+, D, D-, F) from user/Enter a blank line to signal the end: ";
+	    std::string grade = "";
+	    std::getline(std::cin, grade);
+	    auto search = points.find(grade);
+	    if(search == points.end() ){
+		isDone = true;
+	    } 
+	    else{
+		nCourses += 1;
+		total_points += points[grade];
+	    }
+	}
 
-    bool isDone = false;
-    while(!isDone){
-      std::cout << "Read a grade (A+, A, A-, B+, B, B-, C+, C, C-, D+, D, D-, F) from user/Enter a blank line to signal the end: ";
-      std::string grade = "";
-      std::getline(std::cin, grade);
-      auto search = points.find(grade);
-      if(search == points.end() ){
-	isDone = true;
-      } 
-      else{
-	nCourses += 1;
-	total_points += points[grade];
-      }
-    }
+	if(nCourses > 0){
+	    std::cout << "Your GPA is : " << total_points/nCourses << std::endl;
+	}
 
-    if(nCourses > 0){
-      std::cout << "Your GPA is : " << total_points/nCourses << std::endl;
+	if(int a = 5; a < 8){
+	    std::cout << "Local variable a = " << a <<" is < 8\n";
+	} else {
+	    std::cout << "Local variable a is >= 8\n";
+	}
     }
-  }
-  catch(...){
-    std::cerr << "Unkonwn exception thrown\n";
-  }
+    catch(...){
+	std::cerr << "Unkonwn exception thrown\n";
+    }
+    return 0;
+    
 }
